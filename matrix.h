@@ -1,5 +1,5 @@
- #ifndef MATRIX_H
- #define MATRIX_H
+#ifndef MATRIX_H
+#define MATRIX_H
 
 typedef struct
 {
@@ -15,8 +15,9 @@ void m_print(Matrix *m);
 Matrix *m_copy(Matrix *m);
 void m_save(Matrix *m, char *file_string);
 Matrix *m_load(char *file_string);
-// void m_randomize(Matrix *m, int n);
-// int m_argmax(Matrix *m);
-// Matrix *m_flatten(Matrix *m, int axis);
+// Matrix *m_identity(int n);
+//  void m_randomize(Matrix *m, int n);
+//  int m_argmax(Matrix *m);
+//  Matrix *m_flatten(Matrix *m, int axis);
 
 #endif /* matrix.h */

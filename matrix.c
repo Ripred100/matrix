@@ -1,6 +1,6 @@
 #include <math.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "matrix.h"
 
 Matrix *m_create(int row, int col)
@@ -9,7 +9,7 @@ Matrix *m_create(int row, int col)
     temp->rows = row;
     temp->cols = col;
     temp->data = (double *)malloc(row * col * sizeof(double));
-    m_fill(temp, 0);
+    // m_fill(temp, 0);
     return temp;
 }
 
@@ -40,7 +40,7 @@ void m_print(Matrix *m)
         {
             printf("%1.3f ", m->data[i * m->cols + j]);
         }
-        print("\n");
+        printf("\n");
     }
 }
 
@@ -61,18 +61,19 @@ Matrix *m_copy(Matrix *m)
 void m_save(Matrix *m, char *file_name)
 {
     FILE *fptr;
-    if ((fptr = fopen(file_name, "wb")) == NULL)
+    int rows = m->rows;
+    if ((fptr = fopen(file_name, "w")) == NULL)
     {
         printf("Error Opening File in m_save");
         exit(1);
     }
 
+    fwrite(&m->rows, sizeof(int), 1, fptr);
+    fwrite(&(m->cols), sizeof(int), 1, fptr);
     if (m->cols * m->rows != fwrite(m->data, sizeof(double), m->cols * m->rows, fptr))
     {
         printf("Error writing \n");
     }
-    fwrite(&m->rows, sizeof(int), 1, fptr);
-    fwrite(&m->cols, sizeof(int), 1, fptr);
 
     printf("Matrix saved \n");
     fclose(fptr);
@@ -85,19 +86,29 @@ Matrix *m_load(char *file_name)
     int read_rows;
     int read_cols;
 
-    if ((fptr = fopen(file_name, "rb")) == NULL)
+    if ((fptr = fopen(file_name, "r")) == NULL)
     {
         printf("Error opening file in m_load");
         exit(1);
     }
 
-    read_cols = fread(temp, sizeof(int), 1, fptr);
-    read_rows = fread(temp, sizeof(int), 1, fptr);
+    fread(&read_rows, sizeof(int), 1, fptr);
+    fread(&read_cols, sizeof(int), 1, fptr);
 
     // Read size of rows and columns to make the matrix
     temp = m_create(read_rows, read_cols);
+    if (temp->cols * temp->rows != fread(temp->data, sizeof(double), temp->cols * temp->rows, fptr))
+    {
+        printf("Something went wrong reading file \n");
+        exit(1);
+    }
 
-    temp->data = fread(temp->data, sizeof(double), temp->cols * temp->rows, fptr);
+    fclose(fptr);
 
     return temp;
 }
+
+// Matrix *m_identity(int n)
+// {
+//     Matrix
+// }
