@@ -1,1 +1,14 @@
 .vscode/settings.json
+main.obj
+FirstTest.bin
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/c_cpp_properties.json
+vc140.pdb
+utils.obj
+Test.txt
+SecondTest.txt
+SecondTest.bin
+program.exe
+matrix.obj
+main.pdb
