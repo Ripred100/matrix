@@ -1,9 +1,12 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#define MAT_t double
+#define DIM(cols, i, j) (((i * cols) + j))
+
 typedef struct
 {
-    double *data;
+    MAT_t *data;
     int rows;
     int cols;
 } Matrix;
