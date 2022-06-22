@@ -1,4 +1,5 @@
- LINKERFLAG = -lm
+CC=gcc
+CFLAGS=-I.
 
-CC := gcc
-CC := ${CC}
+make: main.o matrix.o utils.o test.o
+     $(CC) -o main matrix.o utils.o test.o
