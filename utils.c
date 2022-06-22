@@ -1,5 +1,5 @@
 #include "utils.h"
-
+#define DEBUG
 /*
 Function m_add
 --------------
@@ -183,6 +183,10 @@ Matrix *m_transpose(Matrix *m)
     }
     else
     {
+#ifdef DEBUG
+        double counter = 2;
+#endif
+
         int delta = 0;
         int pos = 1;
         int temp1 = m->data[pos];
@@ -194,6 +198,10 @@ Matrix *m_transpose(Matrix *m)
 
         do
         {
+#ifdef DEBUG
+            counter++;
+#endif
+
             delta = (i * (cols - 1) + j * (1 - rows));
             temp2 = m->data[pos - delta];
             m->data[pos - delta] = temp1;
@@ -204,6 +212,21 @@ Matrix *m_transpose(Matrix *m)
             i = (pos - j) / cols;
 
         } while (pos != 1);
+
+        int temp = m->cols;
+        *(int *)&m->cols = m->rows;
+        *(int *)&m->rows = temp;
+
+#ifdef DEBUG
+        if (counter == (m->cols * m->rows))
+        {
+            printf("OK");
+        }
+        else
+        {
+            exit(1);
+        }
+#endif
 
         return m;
     }

@@ -12,3 +12,6 @@ SecondTest.bin
 program.exe
 matrix.obj
 main.pdb
+
+*.o
+*.exe

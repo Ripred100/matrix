@@ -3,21 +3,23 @@
 #include "utils.h"
 #include <time.h>
 
+#define DEBUG
+
 int verifyAlgo()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 1; i < 10000; i++)
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 1; j < 10000; j++)
         {
 
-            print("New test for matrix size %dx%d", i, j);
+            printf("New test for matrix size %dx%d \n", i, j);
 
             // Create a matrix of varying size
             Matrix *ptr = m_create(i, j);
             m_fill(ptr, 9);
 
-            printf("Matrix Before: ");
-            m_print(ptr);
+            // printf("Matrix Before: ");
+            // m_print(ptr);
 
             clock_t t;
             t = clock();
@@ -25,8 +27,8 @@ int verifyAlgo()
             t = clock() - t;
             double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
-            printf("Matrix Before: ");
-            m_print(ptr);
+            // printf("Matrix Before: ");
+            // m_print(ptr);
 
             printf("transpose took %f seconds to execute \n", time_taken);
 
