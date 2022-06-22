@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include "matrix.h"
 
-Matrix *m_create(int row, int col)
+Matrix *m_create(const int row, const int col)
 {
     Matrix *temp = (Matrix *)malloc(sizeof(Matrix));
-    temp->rows = row;
-    temp->cols = col;
+    *(int *)&temp->rows = row;
+    *(int *)&temp->cols = col;
     temp->data = (double *)malloc(row * col * sizeof(double));
     // m_fill(temp, 0);
     return temp;

@@ -7,8 +7,8 @@
 typedef struct
 {
     MAT_t *data;
-    int rows;
-    int cols;
+    const int rows;
+    const int cols;
 } Matrix;
 
 Matrix *m_create(int row, int col);
