@@ -1,9 +1,12 @@
 #include "matrix.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "time.h"
 #include "test.h"
 
 int main()
 {
+    srand(time(NULL));
 
     printf("hello. \n");
     // Matrix *m = m_create(4, 3);
@@ -11,7 +14,7 @@ int main()
     // m_print(m);
     // m_save(m, "SecondTest.txt");
 
-    // FILE *fp;
+    // FILE *fp;cl 
     // char str[] = "This is tutorialspoint.com y";
     // int x = 1233;
     // fp = fopen("Test.txt", "w");

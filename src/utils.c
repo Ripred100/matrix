@@ -184,7 +184,7 @@ Matrix *m_transpose(Matrix *m)
     else
     {
 #ifdef DEBUG
-        double counter = 2;
+        int counter = 2;
 #endif
 
         int delta = 0;
@@ -209,7 +209,7 @@ Matrix *m_transpose(Matrix *m)
 
             pos = pos - delta;
             j = pos % cols;
-            i = (pos - j) / cols;
+            i = pos / cols;
 
         } while (pos != 1);
 
@@ -220,11 +220,12 @@ Matrix *m_transpose(Matrix *m)
 #ifdef DEBUG
         if (counter == (m->cols * m->rows))
         {
-            printf("OK");
+            printf("OK \n");
         }
         else
         {
-            exit(1);
+            printf("someting went wrong. %d  \n", counter);
+            // exit(1);
         }
 #endif
 

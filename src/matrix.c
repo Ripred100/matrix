@@ -1,7 +1,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "time.h"
 #include "matrix.h"
+
+#define RAND_MAX 15
 
 Matrix *m_create(const int row, const int col)
 {
@@ -38,7 +41,7 @@ void m_print(Matrix *m)
     {
         for (int j = 0; j < m->cols; j++)
         {
-            printf("%1.3f ", m->data[i * m->cols + j]);
+            printf("%1.0f ", m->data[i * m->cols + j]); // used to be %1.3f
         }
         printf("\n");
     }
@@ -106,6 +109,15 @@ Matrix *m_load(char *file_name)
     fclose(fptr);
 
     return temp;
+}
+
+void m_randomize(Matrix *m, int n)
+{
+
+    for (int i = 0; i < m->cols * m->rows; i++)
+    {
+        m->data[i] = rand();
+    }
 }
 
 // Matrix *m_identity(int n)

@@ -19,7 +19,7 @@ Matrix *m_copy(Matrix *m);
 void m_save(Matrix *m, char *file_string);
 Matrix *m_load(char *file_string);
 // Matrix *m_identity(int n);
-//  void m_randomize(Matrix *m, int n);
+void m_randomize(Matrix *m, int n);
 //  int m_argmax(Matrix *m);
 //  Matrix *m_flatten(Matrix *m, int axis);
 

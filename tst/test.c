@@ -5,21 +5,21 @@
 
 #define DEBUG
 
-int verifyAlgo()
+void verifyAlgo()
 {
-    for (int i = 1; i < 10000; i++)
+    for (int i = 2; i < 5; i++)
     {
-        for (int j = 1; j < 10000; j++)
+        for (int j = 2; j < 5; j++)
         {
 
             printf("New test for matrix size %dx%d \n", i, j);
 
             // Create a matrix of varying size
             Matrix *ptr = m_create(i, j);
-            m_fill(ptr, 9);
+            m_randomize(ptr, 15);
 
-            // printf("Matrix Before: ");
-            // m_print(ptr);
+            printf("Matrix Before: ");
+            m_print(ptr);
 
             clock_t t;
             t = clock();
@@ -27,8 +27,8 @@ int verifyAlgo()
             t = clock() - t;
             double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
-            // printf("Matrix Before: ");
-            // m_print(ptr);
+            printf("Matrix After: ");
+            m_print(ptr);
 
             printf("transpose took %f seconds to execute \n", time_taken);
 
