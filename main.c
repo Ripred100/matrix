@@ -14,14 +14,6 @@ int main()
     // m_print(m);
     // m_save(m, "SecondTest.txt");
 
-    // FILE *fp;cl 
-    // char str[] = "This is tutorialspoint.com y";
-    // int x = 1233;
-    // fp = fopen("Test.txt", "w");
-    // fwrite(str, 1, sizeof(str), fp);
-    // fwrite(&x, sizeof(int), 1, fp);
-    // fclose(fp);
-
     verifyAlgo();
 
     // Matrix *nw = m_load("SecondTest.txt");

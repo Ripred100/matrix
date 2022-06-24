@@ -157,15 +157,6 @@ Matrix *m_addBias(MAT_t n, Matrix *m)
     return m;
 }
 
-/*
-Internal Function
-*/
-int __m_delta(int i, int j, int row, int col)
-{
-    return (i * (col - 1) + j * (1 - row));
-}
-
-// DO NOT USE. WIP
 Matrix *m_transpose(Matrix *m)
 {
     // Special case for when matrix is a 1xn or nx1 matrix
@@ -176,79 +167,17 @@ Matrix *m_transpose(Matrix *m)
         *(int *)&m->rows = temp;
         return m;
     }
-    else if (m->cols == m->rows)
-    {
-        printf("Trying to transpose a symetrical matrix. Function not yet implimented \n");
-        return m;
-    }
     else
     {
-#ifdef DEBUG
-        int counter = 2;
-#endif
+        Matrix *mTrans = m_create(m->cols, m->rows);
 
-        int delta = 0;
-        int pos = 1;
-        int temp1 = m->data[pos];
-        int temp2;
-        int i = 0;
-        int j = 1;
-        int rows = m->rows;
-        int cols = m->cols;
-
-        do
+#pragma omp parallel for
+        for (int n = 0; n < (m->cols * m->rows); n++)
         {
-#ifdef DEBUG
-            counter++;
-#endif
-
-            delta = (i * (cols - 1) + j * (1 - rows));
-            temp2 = m->data[pos - delta];
-            m->data[pos - delta] = temp1;
-            temp1 = temp2;
-
-            pos = pos - delta;
-            j = pos % cols;
-            i = pos / cols;
-
-        } while (pos != 1);
-
-        int temp = m->cols;
-        *(int *)&m->cols = m->rows;
-        *(int *)&m->rows = temp;
-
-#ifdef DEBUG
-        if (counter == (m->cols * m->rows))
-        {
-            printf("OK \n");
+            int i = n / m->rows;
+            int j = n % m->rows;
+            mTrans->data[n] = m->data[m->cols * j + i];
         }
-        else
-        {
-            printf("someting went wrong. %d  \n", counter);
-            // exit(1);
-        }
-#endif
-
-        return m;
-    }
-
-    /*
-    //Code for creating new matrix and coppying all the values one by one
-    Matrix *mTrans = m_create(m->cols, m->rows);
-
-
-    for (int i = 0; i < mTrans->cols; i++)
-    {
-
-        for (int j = 0; j < mTrans->rows; j++)
-        {
-            // For each loop of i and j, mSol<i,j> is being filled.
-            mTrans->data[DIM(mTrans->cols, i, j)] = m->data[DIM(m->cols, j, i)];
-
-        }
-    }
-
-    m_free(m);
-    return mTrans;
-    */
+        m_free(m);
+    }   
 }
